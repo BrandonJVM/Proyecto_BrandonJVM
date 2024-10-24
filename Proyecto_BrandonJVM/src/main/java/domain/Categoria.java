@@ -27,4 +27,7 @@ public class Categoria implements Serializable {
         this.descripcion = categoria;
         this.activo = activo;
     }
+    public boolean isActivo(){
+        return activo;
+    }
 }
