@@ -1,8 +1,0 @@
-package com.Proyecto_BrandonJVM.dao;
-
-import com.Proyecto_BrandonJVM.demo.domain.Categoria;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface CategoriaDao extends JpaRepository<Categoria, Long>{
-    
-}
