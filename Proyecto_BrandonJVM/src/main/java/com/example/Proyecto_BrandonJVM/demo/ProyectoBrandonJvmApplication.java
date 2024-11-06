@@ -1,4 +1,4 @@
-package com.example.Proyecto_BrandonJVM;
+package com.example.Proyecto_BrandonJVM.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

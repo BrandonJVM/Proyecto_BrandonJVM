@@ -1,5 +1,5 @@
 
-package com.example.Proyecto_BrandonJVM;
+package com.example.Proyecto_BrandonJVM.demo;
 
 import java.util.Locale;
 import org.springframework.context.MessageSource;
