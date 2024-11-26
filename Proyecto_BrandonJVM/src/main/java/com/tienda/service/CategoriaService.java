@@ -5,15 +5,17 @@ import java.util.List;
 
 public interface CategoriaService {
 
-    public List<Categoria> getCategorias(boolean activo);
+    // Se obtiene un listado de categorias en un List
+    public List<Categoria> getCategorias(boolean activos);
 
-    // Se obtiene un Categoria, a partir del id de un categoria
+    // Get a Category, based on the ID of a category
     public Categoria getCategoria(Categoria categoria);
-    
-    // Se inserta un nuevo categoria si el id del categoria esta vacío
-    // Se actualiza un categoria si el id del categoria NO esta vacío
+
+    // Insert a new category if the category ID is empty
+    // Update a category if the category ID is NOT empty
     public void save(Categoria categoria);
-    
-    // Se elimina el categoria que tiene el id pasado por parámetro
+
+    // Delete the category that has the ID passed as a parameter
     public void delete(Categoria categoria);
+
 }
