@@ -20,7 +20,7 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping("/listado")
-    private String listado(Model model) {
+    public String listado(Model model) {
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
         model.addAttribute("totalCategorias", categorias.size());
@@ -33,7 +33,7 @@ public class CategoriaController {
     }
 
     @Autowired
-    private FirebaseStorageServiceImpl firebaseStorageService;
+    private FirebaseStorageService firebaseStorageService;
 
     @PostMapping("/guardar")
     public String categoriaGuardar(Categoria categoria,

@@ -27,13 +27,12 @@ public class ProductoController {
     private CategoriaService categoriaService;
 
     @GetMapping("/listado")
-    private String listado(Model model) {
-        var productos = productoService.getProductos(false);
-        model.addAttribute("productos", productos);
-
+    public String listado(Model model) {
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
 
+        var productos = productoService.getProductos(false);
+        model.addAttribute("productos", productos);
         model.addAttribute("totalProductos", productos.size());
         return "/producto/listado";
     }
@@ -44,7 +43,7 @@ public class ProductoController {
     }
 
     @Autowired
-    private FirebaseStorageServiceImpl firebaseStorageService;
+    private FirebaseStorageService firebaseStorageService;
 
     @PostMapping("/guardar")
     public String productoGuardar(Producto producto,
@@ -69,12 +68,10 @@ public class ProductoController {
 
     @GetMapping("/modificar/{idProducto}")
     public String productoModificar(Producto producto, Model model) {
-        producto = productoService.getProducto(producto);
-        model.addAttribute("producto", producto);
-
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
-
+        producto = productoService.getProducto(producto);
+        model.addAttribute("producto", producto);
         return "/producto/modifica";
     }
 }
