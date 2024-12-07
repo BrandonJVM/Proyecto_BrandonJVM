@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.tienda.service.impl;
 
 import com.google.auth.Credentials;
@@ -26,13 +30,13 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
             // El nombre original del archivo local del cliene
             String extension = archivoLocalCliente.getOriginalFilename();
 
-            // Se genera el nombre según el código del articulo. 
+            // Se genera el nombre según el código del articulo.
             String fileName = "img" + sacaNumero(id) + extension;
 
             // Se convierte/sube el archivo a un archivo temporal
             File file = this.convertToFile(archivoLocalCliente);
 
-            // se copia a Firestore y se obtiene el url válido de la imagen (por 10 años) 
+            // se copia a Firestore y se obtiene el url válido de la imagen (por 10 años)
             String URL = this.uploadFile(file, carpeta, fileName);
 
             // Se elimina el archivo temporal cargado desde el cliente
@@ -46,19 +50,22 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
     }
 
     private String uploadFile(File file, String carpeta, String fileName) throws IOException {
-        //Se define el lugar y acceso al archivo .jasper
+        // Se define el lugar y acceso al archivo .jasper
         ClassPathResource json = new ClassPathResource(rutaJsonFile + File.separator + archivoJsonFile);
         BlobId blobId = BlobId.of(BucketName, rutaSuperiorStorage + "/" + carpeta + "/" + fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
-        
+
         Credentials credentials = GoogleCredentials.fromStream(json.getInputStream());
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
-        String url = storage.signUrl(blobInfo, 3650, TimeUnit.DAYS, SignUrlOption.signWith((ServiceAccountSigner) credentials)).toString();
+        String url = storage
+                .signUrl(blobInfo, 3650, TimeUnit.DAYS, SignUrlOption.signWith((ServiceAccountSigner) credentials))
+                .toString();
         return url;
     }
 
-    //Método utilitario que convierte el archivo desde el equipo local del usuario a un archivo temporal en el servidor
+    // Método utilitario que convierte el archivo desde el equipo local del usuario
+    // a un archivo temporal en el servidor
     private File convertToFile(MultipartFile archivoLocalCliente) throws IOException {
         File tempFile = File.createTempFile("img", null);
         try (FileOutputStream fos = new FileOutputStream(tempFile)) {
@@ -68,7 +75,7 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
         return tempFile;
     }
 
-    //Método utilitario para obtener un string con ceros....
+    // Método utilitario para obtener un string con ceros....
     private String sacaNumero(long id) {
         return String.format("%019d", id);
     }

@@ -7,9 +7,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "producto")
-
 public class Producto implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -20,6 +18,7 @@ public class Producto implements Serializable {
     private String detalle;
     private double precio;
     private int existencias;
+    @Column(name = "ruta_imagen")
     private String rutaImagen;
     private boolean activo;
 
@@ -28,13 +27,14 @@ public class Producto implements Serializable {
     Categoria categoria;
 
     public Producto() {
-
     }
 
-    public Producto(String descripcion, String rutaImagen, boolean activo) {
+    public Producto(String descripcion, String detalle, double precio, int existencias, String imagen, boolean activo) {
         this.descripcion = descripcion;
-        this.rutaImagen = rutaImagen;
+        this.detalle = detalle;
+        this.precio = precio;
+        this.existencias = existencias;
+        this.rutaImagen = imagen;
         this.activo = activo;
     }
-
 }
